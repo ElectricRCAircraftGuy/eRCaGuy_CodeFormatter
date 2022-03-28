@@ -54,6 +54,10 @@ However, for Ubuntu 18.04, this only gets you version (found by `clang-format --
 
 ## To install the latest version of `clang-format`:
 
+As a convenience, I include a recent version of `clang-format` in the [`bin` directory](bin) right here.
+
+Otherwise, to get the absolute latest, and to learn how to move the executable into your PATH, follow these instructions:
+
 1. Go to the releases page: https://github.com/llvm/llvm-project/releases
 1. Find the latest binary release for your operating system. Example: for 64-bit Linux, it is currently (as of Mar. 2022): **clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz**. The download link is: https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
 1. Use the link you found above for the next commands:
