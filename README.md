@@ -1,6 +1,6 @@
 # eRCaGuy_CodeFormatter
 
-A collection of scripts &amp; configuration files to quickly and easily format your code (by calling clang-format, for instance)
+A collection of scripts & configuration files to quickly and easily format your code (by calling clang-format, for instance)
 
 By Gabriel Staples  
 https://gabrielstaples.com  
@@ -24,7 +24,23 @@ MIT
     1. Example: [**clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz**](https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz)
 
 
-# Installation instructions:
+# Usage
+
+1. Option 1: to auto-format ALL C and C++ files at the path of `run_clang-format.sh` and below:
+    ```bash
+    cd path/to/here
+    ./run_clang-format.sh
+    ```
+1. Option 2: to auto-format just a specific file or two:
+    ```bash
+    # Format this file in-place (`-i`)
+    clang-format --verbose -i --style=file "path/to/file1.h" "path/to/file2.c"
+    ```
+1. The way that `--style=file` works is it tells `clang-format` to look for and use the nearest `.clang-format` file, either in the current directory, or in a parent directory. It will scan the current directory for a `.clang-format` file, and if none is found, it will `cd ..` to move up one directory, then it will scan again, and so-on, until it either scans all the way to the root dir at `/`, OR until it finds a `.clang-format` file, whichever happens first. In this way, you can place a `.clang-format` file in your `$HOME` dir as a sort of "main settings file", and you can make more-specific copies of the `clang-format` file in any lower directory, as needed, to customize the format settings for a _specific directory_ or _project_ you may be working on.
+
+
+<a id="installation-instructions"></a>
+# `clang-format` Installation Instructions:
 
 
 ## To install on Ubuntu 20.04 or later:
@@ -39,7 +55,7 @@ However, for Ubuntu 18.04, this only gets you version (found by `clang-format --
 ## To install the latest version of `clang-format`:
 
 1. Go to the releases page: https://github.com/llvm/llvm-project/releases
-1. Find the latest binary release for your operating system. Example: for 64-bit Linux, it is currently: **clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz**. The download link is: https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+1. Find the latest binary release for your operating system. Example: for 64-bit Linux, it is currently (as of Mar. 2022): **clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz**. The download link is: https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
 1. Use the link you found above for the next commands:
     ```bash
     url="https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
@@ -59,6 +75,7 @@ However, for Ubuntu 18.04, this only gets you version (found by `clang-format --
     # order to ensure ~/bin is part of your executable PATH variable. This is
     # part of your default Ubuntu ~/.profile file (for which you have a backup
     # copy in /etc/skel/.profile):
+    #
     #       # set PATH so it includes user's private bin if it exists
     #       if [ -d "$HOME/bin" ] ; then
     #           PATH="$HOME/bin:$PATH"
