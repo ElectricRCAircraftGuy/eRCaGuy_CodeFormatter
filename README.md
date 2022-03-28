@@ -54,7 +54,7 @@ However, for Ubuntu 18.04, this only gets you version (found by `clang-format --
 
 ## To install the latest version of `clang-format`:
 
-As a convenience, I include a recent version of `clang-format` in the [`bin` directory](bin) right here.
+As a convenience, I include a recent version of `clang-format` in the [`bin` directory right here](bin).
 
 Otherwise, to get the absolute latest, and to learn how to move the executable into your PATH, follow these instructions:
 

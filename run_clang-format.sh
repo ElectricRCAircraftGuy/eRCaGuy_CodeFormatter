@@ -35,7 +35,7 @@ echo ""
 
 format_files="false"
 # See: https://stackoverflow.com/a/226724/4561887
-read -p "Do you wish to auto-format all of these files? [y|N] " user_response
+read -p "Do you wish to auto-format all of these files [y/N] " user_response
 case "$user_response" in
     [Yy]* ) format_files="true"
 esac
