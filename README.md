@@ -87,6 +87,8 @@ Otherwise, to get the absolute latest, and to learn how to copy the executable i
 
     # Now, if this is your first time creating and using the ~/bin dir, log out
     # of Ubuntu and log back in. 
+    # Otherwise, re-source your ~/.bashrc file:
+    . ~/.bashrc
 
     # check your clang-format version to ensure it shows the version you just
     # installed
