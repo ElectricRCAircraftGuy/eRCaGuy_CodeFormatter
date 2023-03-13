@@ -6,14 +6,14 @@
 # https://stackoverflow.com/a/65988393/4561887
 
 # See my ans: https://stackoverflow.com/a/60157372/4561887
-FULL_PATH_TO_SCRIPT="$(realpath "$0")"
+FULL_PATH_TO_SCRIPT="$(realpath -s "$0")"
 SCRIPT_DIRECTORY="$(dirname "$FULL_PATH_TO_SCRIPT")"
 
 RETURN_CODE_SUCCESS=0
 RETURN_CODE_ERROR=1
 
 # Find all files in SCRIPT_DIRECTORY with one of these extensions
-FILE_LIST="$(find "$SCRIPT_DIRECTORY" | grep -E ".*\.(ino|cpp|c|h|hpp|hh)$")"
+FILE_LIST="$(find "$SCRIPT_DIRECTORY" | grep -E ".*\.(ino|cpp|cc|c|h|hpp|hh)$")"
 # echo "\"$FILE_LIST\"" # debugging
 # split into an array; see my ans: https://stackoverflow.com/a/71575442/4561887
 # mapfile -t FILE_LIST_ARRAY <<< "$FILE_LIST"

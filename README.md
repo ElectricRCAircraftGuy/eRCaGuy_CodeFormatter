@@ -8,7 +8,7 @@ www.ElectricRCAircraftGuy.com
 
 
 # Status
-Works, but it could use some improvement, instructions, and workflow-design so I can get it easily imported as a submodule and figure out how to easily use it in all my other projects or whatever.
+Done and works!
 
 _I have a lot of this information/instructions [on Stack Overflow too, here](https://stackoverflow.com/a/56879394/4561887). See both sets of instructions--both this readme and that answer, in case one is more up-to-date or has more info. than the other._
 
@@ -18,6 +18,11 @@ MIT
 See the "LICENSE" file.
 
 
+# TODO
+Newest on _top_.
+1. [x] it could use some improvement, instructions, and workflow-design so I can get it easily imported as a submodule and figure out how to easily use it in all my other projects or whatever.
+
+
 # References
 
 1. Official `clang-format` documentation from the source code: https://github.com/llvm/llvm-project/blob/main/clang/docs/ClangFormat.rst
@@ -25,9 +30,50 @@ See the "LICENSE" file.
 1. Releases: https://github.com/llvm/llvm-project/releases
     1. The latest pre-compiled `clang-format`, `clang-tidy`, etc., executables can always be extracted from the `bin` folder of the latest binary release. 
     1. Example: [**clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz**](https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz)
+1. \*\*\*\*\* For my notes to myself on how to use git submodules, see: https://github.com/ElectricRCAircraftGuy/eRCaGuy_dotfiles#to-add-a-repo-as-a-submodule-inside-another-repo
 
 
-# Usage
+# Installation, usage, & workflow
+
+To easily use this tool to code format your own repo, do this:
+```bash
+# install clang-format
+# - for Ubuntu 20 or later, do this:
+sudo apt update
+sudo apt install clang-format
+# - for older versions of Ubuntu, see my instructions further below
+
+# cd into your repo which you'd like to format; we are going to add this repo as a submodule into
+# your repo
+cd path/to/your/repo/you/want/to/format
+# add my repo as a submodule into yours
+git submodule add https://github.com/ElectricRCAircraftGuy/eRCaGuy_CodeFormatter.git
+git commit
+
+# Add necessary relative symlinks into the root of your repo, so that my tool will search from that
+# level down
+ln -sir eRCaGuy_CodeFormatter/run_clang-format.sh .
+ln -sir ln -sir eRCaGuy_CodeFormatter/.clang-format .
+# commit these symlinks to your repo
+git add -A
+git commit -m "Add symlinks to eRCaGuy_CodeFormatter clang-format tool"
+
+# Run my tool by calling the symlink you just placed at the root of your repo!
+# It will ask you if you'd like to format the files it finds. 
+./run_clang-format.sh
+# Commit the changes when it is done
+git add -A
+git commit -m "Run clang-format by calling './run_clang-format.sh'"
+
+# To pull my latest upstream changes of eRCaGuy_CodeFormatter into your submodule in your repo
+# - see my notes here: https://github.com/ElectricRCAircraftGuy/eRCaGuy_dotfiles#to-update-this-repo
+git submodule update --init --recursive
+git add -A
+git commit -m "Update all subrepos to their latest upstream changes"
+```
+
+
+# General `clang-format` info
 
 See also [my answer here](https://stackoverflow.com/a/56879394/4561887).
 
