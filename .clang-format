@@ -67,16 +67,23 @@ Language:        Cpp
 # BasedOnStyle:  Google (with heavy modifications, the biggest one being setting braces to
 # `BreakBeforeBraces: Allman`)
 AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: AlwaysBreak
+# AlignAfterOpenBracket: BlockIndent  # USE THIS OPTION WHEN ABLE! `BlockIndent` option
+                                    # available only in clang-format 14 or later; see my comment
+                                    # under this answer here:
+                                    # https://stackoverflow.com/a/74584512/4561887
+                                    # This will place closing parenthesis of blocks on a new line,
+                                    # aligned with the left-hand side of the opening part of the
+                                    # block, like I like to do in Python and in C++ argument lists.
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
 # AlignConsecutiveMacros: false
 AlignEscapedNewlines: Left
 AlignOperands:   true
 AlignTrailingComments: true
-# AllowAllArgumentsOnNextLine: false
-AllowAllConstructorInitializersOnNextLine : false
-AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: true
+AllowAllConstructorInitializersOnNextLine : true  # deprecated as of clang-format 14
+AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: false # Empty <== use on later clang-format versions
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
@@ -86,8 +93,8 @@ AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: true # Yes <== use on later clang-format versions
-BinPackArguments: true
-BinPackParameters: true
+BinPackArguments: false
+BinPackParameters: false
 # Per the documentation, this BraceWrapping section is only used if BreakBeforeBraces is set
 # to Custom.
 # BraceWrapping:
@@ -113,7 +120,14 @@ BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: false
 # Not found in the docs; must be deprecated?:
 # BreakConstructorInitializersBeforeComma: false
-BreakConstructorInitializers: AfterColon
+# BreakConstructorInitializers: AfterColon  # for constructor initializer lists!; see also:
+                                          # https://stackoverflow.com/a/56812162/4561887
+BreakConstructorInitializers: BeforeColon
+# BreakConstructorInitializers: BeforeComma  # I *would* like this if it allowed comments on their
+                                             # own lines in the middle of initializer lists, but
+                                             # it doesn't! So, use `BeforeColon` instead, which
+                                             # *does* allow comments on their own lines between
+                                             # initializer list entries.
 # Not found in the docs; must be deprecated?:
 # BreakAfterJavaFieldAnnotations: false
 # BreakInheritanceList: AfterColon
@@ -121,7 +135,7 @@ BreakStringLiterals: true
 ColumnLimit:     100
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true  # deprecated as of clang-format 14
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
@@ -171,6 +185,11 @@ ObjCBlockIndentWidth: 2
 # Not used: ObjCBreakBeforeNestedBlockParam
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: false
+# For initializer lists:
+# PackConstructorInitializers: NextLineOnly # USE THIS OPTION WHEN ABLE!; available only as of
+                                          # clang-format 14 or later! If you try to use it in
+                                          # earlier versions, you'll see `error: unknown
+                                          # key 'PackConstructorInitializers'`
 PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 1
 PenaltyBreakComment: 300
