@@ -183,7 +183,7 @@ To install `meld` as your difftool, see my answer here: [How to use meld as your
 
 
 <a id="installation-instructions"></a>
-# `clang-format` Installation Instructions
+# How did I originally get these clang executables directly from LLVM / Clang?
 
 Where did I get these files? See below. 
 
