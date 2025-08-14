@@ -35,6 +35,8 @@ find . -type f -name "*.partaa" | while read -r partaa_file; do
   # Verify if recombination was successful
   if [ $? -eq 0 ]; then
     echo "  Successfully recombined $basefile"
+    echo "  Making it executable."
+    chmod +x "$basefile"
     # Optionally, remove the part files after successful recombination
     # rm "$dir/$(basename "$basefile")".part*
   else
