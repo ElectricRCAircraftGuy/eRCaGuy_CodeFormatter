@@ -36,13 +36,55 @@ Newest on _top_.
 # Installation, usage, & workflow
 
 To easily use this tool to code format your own repo, do this:
-```bash
-# install clang-format
-# - for Ubuntu 20 or later, do this:
-sudo apt update
-sudo apt install clang-format
-# - for older versions of Ubuntu, see my instructions further below
 
+
+## 1. Option A: Install `clang-format`, `clang-tidy`, and `git clang-format` by cloning this repo into a separate location
+
+_For both Windows and Linux:_
+
+```bash
+mkdir -p ~/Downloads/Install_Files/
+cd ~/Downloads/Install_Files/
+git clone https://github.com/ElectricRCAircraftGuy/eRCaGuy_CodeFormatter.git
+cd eRCaGuy_CodeFormatter
+./bin/recombine_files.sh
+
+cd "bin/21.1.8/LLVM-20.1.8-Linux-X64/bin"                       # For Linux
+cd "bin/21.1.8/clang+llvm-20.1.8-x86_64-pc-windows-msvc/bin"    # For Windows
+
+mkdir -p ~/bin
+# Note: on Windows, `ln -s` doesn't create real symlinks. Instead, it just copies the file to that
+# location.
+ln -si "$(pwd)/clang-format" ~/bin/
+ln -si "$(pwd)/clang-tidy" ~/bin/
+ln -si "$(pwd)/git-clang-format" ~/bin/
+
+# Test to ensure they work
+clang-format --version
+clang-tidy --version
+git-clang-format --version
+
+# And for any repo you want to format:
+# cd back up to the eRCaGuy_CodeFormatter repo root
+# - See: https://stackoverflow.com/a/957978/4561887
+REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT_DIR"
+# Then create a symlink of this script in your own repo so it can easily be formatted by calling 
+# `run_clang-format.sh` within your own repo
+ln -si "$(pwd)/run_clang-format.sh" path/to/MyRepo1/
+ln -si "$(pwd)/run_clang-format.sh" path/to/MyRepo2/
+# etc. 
+
+# Add the `.clang-format` file to your repos to be formatted too
+ln -si "$(pwd)/.clang-format" path/to/MyRepo1/
+ln -si "$(pwd)/.clang-format" path/to/MyRepo2/
+# etc. 
+```
+
+
+## 2. Option B: Install `clang-format`, `clang-tidy`, and `git clang-format` from a submodule of `eRCaGuy_CodeFormatter` within your own repo
+
+```bash
 # cd into your repo which you'd like to format; we are going to add this repo as a submodule into
 # your repo
 cd path/to/your/repo/you/want/to/format
@@ -53,23 +95,38 @@ git commit
 # Add necessary relative symlinks into the root of your repo, so that my tool will search from that
 # level down
 ln -sir eRCaGuy_CodeFormatter/run_clang-format.sh .
-ln -sir ln -sir eRCaGuy_CodeFormatter/.clang-format .
+ln -sir eRCaGuy_CodeFormatter/.clang-format .
 # commit these symlinks to your repo
 git add -A
 git commit -m "Add symlinks to eRCaGuy_CodeFormatter clang-format tool"
 
-# Run my tool by calling the symlink you just placed at the root of your repo!
-# It will ask you if you'd like to format the files it finds. 
-./run_clang-format.sh
-# Commit the changes when it is done
-git add -A
-git commit -m "Run clang-format by calling './run_clang-format.sh'"
-
-# To pull my latest upstream changes of eRCaGuy_CodeFormatter into your submodule in your repo
-# - see my notes here: https://github.com/ElectricRCAircraftGuy/eRCaGuy_dotfiles#to-update-this-repo
+# To periodically pull my latest upstream changes of eRCaGuy_CodeFormatter into your submodule
+# in your repo:
+# See:
+# 1. My notes here: https://github.com/ElectricRCAircraftGuy/eRCaGuy_dotfiles#to-update-this-repo
+# 2. My answer: https://stackoverflow.com/a/74470585/4561887
+# 3. My article: git submodule “Quick Start” guide: 
+#    https://gabrielstaples.com/git-submodule-guide/#gsc.tab=0
 git submodule update --init --recursive
 git add -A
 git commit -m "Update all subrepos to their latest upstream changes"
+```
+
+
+## 3. Test it all by running `run_clang-format.sh`
+
+```bash
+# Run my tool by calling the symlink you just placed at the root of your repo!
+cd path/to/MyRepo1/
+./run_clang-format.sh
+
+# See the format changes
+git difftool  
+# Commit the changes
+git add -A
+git commit -m "Run clang-format by calling './run_clang-format.sh'"
+
+# Etc. 
 ```
 
 
@@ -126,7 +183,9 @@ To install `meld` as your difftool, see my answer here: [How to use meld as your
 
 
 <a id="installation-instructions"></a>
-# `clang-format` Installation Instructions:
+# `clang-format` Installation Instructions
+
+Where did I get these files? See below. 
 
 See also [my answer here](https://stackoverflow.com/a/56879394/4561887).
 
