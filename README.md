@@ -62,7 +62,7 @@ ln -si "$(pwd)/git-clang-format" ~/bin/
 # Test to ensure they work
 clang-format --version
 clang-tidy --version
-git-clang-format --version
+git-clang-format --help
 
 # And for any repo you want to format:
 # cd back up to the eRCaGuy_CodeFormatter repo root
