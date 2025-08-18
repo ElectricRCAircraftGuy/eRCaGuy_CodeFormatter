@@ -37,6 +37,18 @@ Newest on _top_.
 
 To easily use this tool to code format your own repo, do this:
 
+```bash
+# Check all files for proper formatting
+# - Update the script in `Makefile`
+make check
+
+# Format all files via clang-format
+# - Update the script in `Makefile`
+make fix
+```
+
+Details:
+
 
 ## 1. Option A: Install `clang-format`, `clang-tidy`, and `git clang-format` by cloning this repo into a separate location
 
@@ -137,6 +149,16 @@ See also [my answer here](https://stackoverflow.com/a/56879394/4561887).
 
 ## 1. `clang-format`
 
+1. Option 0: 
+    ```bash
+    # Check all files for proper formatting
+    # - Update the script in `Makefile`
+    make check
+
+    # Format all files via clang-format
+    # - Update the script in `Makefile`
+    make fix
+    ```
 1. Option 1: to auto-format ALL C and C++ files at the path of `run_clang-format.sh` and below:
     ```bash
     cd path/to/here
